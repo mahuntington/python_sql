@@ -70,6 +70,8 @@
 
 ## Python + SQL
 
+### Topics
+
 1. Connecting to Postgres via Python
 1. Running Queries with Python
 1. Migrating data to a SQLite
