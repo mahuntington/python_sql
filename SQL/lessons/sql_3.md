@@ -6,6 +6,7 @@
 1. Alias
 1. Indexes
 1. Constraints
+1. Distinct
 
 ## Lesson Objectives - good to know about
 
@@ -72,6 +73,12 @@ CREATE TABLE people(
   company_id  INT          REFERENCES companies(id)
 );
 INSERT INTO people (name, email, company_id) VALUES ('bob', 'bob@bob.com', 999)
+```
+
+### Distinct
+
+```sql
+SELECT DISTINCT city FROM people;
 ```
 
 ## Good to Know About
