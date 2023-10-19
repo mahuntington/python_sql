@@ -123,6 +123,18 @@ SELECT add_numbers(2,4);
 
 ### Stored Procedures
 
+```sql
+CREATE PROCEDURE add_person(new_name VARCHAR(16))
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	INSERT INTO people (name) VALUES (new_name);
+END
+$$;
+
+call add_person('matt');
+```
+
 ### Triggers
 
 ### Transactions
