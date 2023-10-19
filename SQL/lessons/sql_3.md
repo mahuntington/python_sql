@@ -89,6 +89,11 @@ SELECT DISTINCT city FROM people;
 
 ### Unions
 
+```sql
+SELECT name FROM people UNION SELECT name FROM companies; -- show distinct values
+SELECT name FROM people UNION ALL SELECT name FROM companies; -- show duplicates
+```
+
 ### Truncate
 
 ### Triggers
