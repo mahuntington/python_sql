@@ -13,9 +13,10 @@
 1. EER Diagrams
 1. Unions
 1. Truncate
-1. Triggers
 1. Views
-1. Functions/Stored Procedures
+1. Functions
+1. Stored Procedures
+1. Triggers
 1. Transactions
 1. Locks
 1. Privileges
@@ -96,11 +97,33 @@ SELECT name FROM people UNION ALL SELECT name FROM companies; -- show duplicates
 
 ### Truncate
 
-### Triggers
+```sql
+TRUNCATE TABLE people; -- delete all data, but don't delete table itself
+```
 
 ### Views
 
-### Functions/Stored Procedures
+```sql
+CREATE VIEW new_yorkers AS SELECT * FROM people WHERE city = 'NYC';
+SELECT * FROM new_yorkers
+```
+
+### Functions
+
+```sql
+CREATE FUNCTION add_numbers(a integer, b integer)
+RETURNS integer AS $$
+BEGIN
+	RETURN a + b;
+END; $$
+LANGUAGE plpgsql;
+
+SELECT add_numbers(2,4);
+```
+
+### Stored Procedures
+
+### Triggers
 
 ### Transactions
 
