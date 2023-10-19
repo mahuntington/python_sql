@@ -78,6 +78,8 @@ INSERT INTO people (name, email, company_id) VALUES ('bob', 'bob@bob.com', 999)
 
 ### EER Diagrams
 
+![](https://cdn.tutsplus.com/cdn-cgi/image/width=992/net/uploads/legacy/538_sql3/ss_6.png)
+
 ### Unions
 
 ### Truncate
