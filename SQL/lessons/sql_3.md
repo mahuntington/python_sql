@@ -111,12 +111,11 @@ SELECT * FROM new_yorkers
 ### Functions
 
 ```sql
-CREATE FUNCTION add_numbers(a integer, b integer)
-RETURNS integer AS $$
-BEGIN
-	RETURN a + b;
-END; $$
-LANGUAGE plpgsql;
+CREATE FUNCTION add_numbers(a integer, b integer) RETURNS integer AS $$
+	BEGIN
+		RETURN a + b;
+	END;
+$$ LANGUAGE plpgsql;
 
 SELECT add_numbers(2,4);
 ```
