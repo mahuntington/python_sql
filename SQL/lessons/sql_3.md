@@ -5,6 +5,7 @@
 1. Linking Tables
 1. Alias
 1. Indexes
+1. Default Values
 1. Constraints
 1. Distinct
 
@@ -51,8 +52,15 @@ ON t1.common_filed = t2.common_field;
 
 1. `CREATE INDEX index_name ON table_name (column_name);`
 1. `CREATE INDEX index_name ON table_name (column1_name, column2_name);`
-1. use `\d table_name` to view indexes
 1. Primary Key
+1. use `\d table_name` to view indexes
+
+### Default Values
+
+```sql
+CREATE TABLE people (id SERIAL, age INT DEAFULT 0);
+\d people
+```
 
 ### Constraints
 
@@ -73,6 +81,7 @@ CREATE TABLE people(
   email       VARCHAR(32)  NOT NULL UNIQUE,
   company_id  INT          REFERENCES companies(id)
 );
+\d people
 INSERT INTO people (name, email, company_id) VALUES ('bob', 'bob@bob.com', 999)
 ```
 
@@ -105,6 +114,9 @@ TRUNCATE TABLE people; -- delete all data, but don't delete table itself
 
 ```sql
 CREATE VIEW new_yorkers AS SELECT * FROM people WHERE city = 'NYC';
+
+\dv
+
 SELECT * FROM new_yorkers
 ```
 
@@ -116,6 +128,8 @@ CREATE FUNCTION add_numbers(a integer, b integer) RETURNS integer AS $$
 		RETURN a + b;
 	END;
 $$ LANGUAGE plpgsql;
+
+\df
 
 SELECT add_numbers(2,4);
 ```
@@ -131,10 +145,33 @@ BEGIN
 END
 $$;
 
+\df
+
 call add_person('matt');
 ```
 
 ### Triggers
+
+```sql
+CREATE TABLE backup_people (id INT, name VARCHAR(16), age INT);
+
+CREATE FUNCTION moveDeleted() RETURNS trigger AS $$
+	BEGIN
+		INSERT INTO backup_people VALUES (OLD.id, OLD.name, OLD.age);
+	RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER archive_person
+	BEFORE DELETE on people
+	FOR EACH ROW
+	EXECUTE PROCEDURE moveDeleted();
+
+\df
+
+DELETE FROM people WHERE id = 1;
+```
+
 
 ### Transactions
 
