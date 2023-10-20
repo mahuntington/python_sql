@@ -58,8 +58,11 @@ ON t1.common_filed = t2.common_field;
 ### Default Values
 
 ```sql
-CREATE TABLE people (id SERIAL, age INT DEAFULT 0);
+CREATE TABLE people (id SERIAL, name VARCHAR(16), age INT DEAFULT 0);
 \d people
+
+INSERT INTO people (name) VALUES ('matt');
+SELECT * FROM people;
 ```
 
 ### Constraints
@@ -70,19 +73,24 @@ CREATE TABLE people (id SERIAL, age INT DEAFULT 0);
 
 ```sql
 CREATE TABLE companies(
-  id          SERIAL       PRIMARY KEY,
-  name        VARCHAR(16)  NOT NULL UNIQUE,
-  city        VARCHAR(16)
+	id SERIAL,
+	name VARCHAR(16)  NOT NULL,
+	city VARCHAR(16)
 );
+
 INSERT INTO companies ( city ) VALUES ('Palo Alto');
+
 CREATE TABLE people(
-  id          INT          PRIMARY KEY,
-  name        VARCHAR(16)  NOT NULL,
-  email       VARCHAR(32)  NOT NULL UNIQUE,
-  company_id  INT          REFERENCES companies(id)
+	id INT,
+	name VARCHAR(16),
+	email VARCHAR(32) UNIQUE,
+	company_id INT REFERENCES companies(id)
 );
+
 \d people
-INSERT INTO people (name, email, company_id) VALUES ('bob', 'bob@bob.com', 999)
+
+INSERT INTO people (name, email, company_id) VALUES ('bob', 'bob@bob.com', 999) -- bad company_id
+INSERT INTO people (name, email, company_id) VALUES ('bob', 'bob@bob.com', 1) -- not unique email
 ```
 
 ### Distinct
