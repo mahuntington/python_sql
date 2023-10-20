@@ -180,8 +180,38 @@ CREATE TRIGGER archive_person
 DELETE FROM people WHERE id = 1;
 ```
 
-
 ### Transactions
+
+```sql
+BEGIN;
+
+INSERT INTO people (name) VALUES ('matt');
+
+SELECT * FROM people;
+
+-- start a different session and run SELECT * FROM people;
+-- Switch back to original session
+
+COMMIT;
+
+-- in other session run SELECT * FROM people;
+```
+
+OR
+
+```sql
+BEGIN;
+
+INSERT INTO people (name) VALUES ('matt');
+
+SELECT * FROM people;
+
+asdfasdfasdfasdfasdfasdf;
+
+ROLLBACK;
+
+SELECT * FROM people;
+```
 
 ### Locks
 
