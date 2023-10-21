@@ -232,6 +232,12 @@ END;
 
 ### Denormalization
 
+| id | name | age | company_id | company_name | company_address |
+|----|------|-----|------------|--------------|-----------------|
+| 1  | matt | 43  | 1          | google       | SF              | 
+
 ### Excel -> CSV -> MySQL
 
 ### SQL Injection
+
+- input with value `Huntington'; DROP TABLE people;`
