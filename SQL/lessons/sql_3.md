@@ -230,6 +230,22 @@ END;
 
 ### Privileges
 
+```sql
+CREATE USER youruser;
+\du
+
+-- new session
+psql -U youruser -d supertest_lab
+SELECT * FROM people;
+
+-- original session
+GRANT ALL ON people TO youruser;
+
+-- switch sessions again
+SELECT * FROM people;
+
+```
+
 ### Denormalization
 
 | id | name | age | company_id | company_name | company_address |
