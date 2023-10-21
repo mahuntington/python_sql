@@ -238,6 +238,10 @@ END;
 
 ### Excel -> CSV -> MySQL
 
+- Create sheet
+- File -> Download -> .csv
+- `COPY people (name, age, ancestry, city) FROM '/Users/matthuntington/Downloads/people.csv' DELIMITER ',' CSV;`
+
 ### SQL Injection
 
 - input with value `Huntington'; DROP TABLE people;`
