@@ -22,7 +22,7 @@
 1. Locks
 1. Privileges
 1. Denormalization
-1. Excel -> CSV -> MySQL
+1. Excel -> CSV -> SQL
 
 ## Important
 
@@ -236,7 +236,7 @@ END;
 |----|------|-----|------------|--------------|-----------------|
 | 1  | matt | 43  | 1          | google       | SF              | 
 
-### Excel -> CSV -> MySQL
+### Excel -> CSV -> SQL
 
 - Create sheet
 - File -> Download -> .csv
