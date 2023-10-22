@@ -11,7 +11,7 @@
 
 ## Install a Python virtual environment
 
-```
+```python
 python3 -m venv ~/my-env
 source ~/my-env/bin/activate
 ```
@@ -50,8 +50,8 @@ cursor.close()
 
 Select one
 
-```ptyon
-cursor.execute("SELECT * FROM people WHERE id = 12")
+```python
+cursor.execute("SELECT * FROM people WHERE id = %s", [24])
 print(cursor.fetchone())
 ```
 
@@ -65,7 +65,7 @@ conn.commit()
 Delete
 
 ```python
-cursor.execute("DELETE FROM people WHERE id = 12");
+cursor.execute("DELETE FROM people WHERE id = %s", [24]);
 conn.commit()
 ```
 
@@ -75,3 +75,9 @@ Update
 cursor.execute("UPDATE people SET name = %s, age = %s WHERE id = %s", ['Matt', 43, 20])
 conn.commit()
 ```
+
+## Migrating data to a SQLite
+
+## Exporting data to CSV
+
+
