@@ -6,6 +6,7 @@
 1. Install psychopg2-binary
 1. Connect to Postgres via Python
 1. Running Queries with Python
+1. SQLite Basics
 1. Migrating data to a SQLite
 1. Exporting data to CSV
 
@@ -74,6 +75,60 @@ Update
 ```python
 cursor.execute("UPDATE people SET name = %s, age = %s WHERE id = %s", ['Matt', 43, 20])
 conn.commit()
+```
+
+## SQLite Basics
+
+Connect:
+
+```python
+import sqlite3
+con = sqlite3.connect("mydb.db")
+
+# close connection
+con.close()
+```
+
+Create table
+
+```python
+cur = con.cursor()
+cur.execute("CREATE TABLE people (name, age)")
+```
+
+Select Many
+
+```python
+res = cur.execute("SELECT * FROM people")
+print(res.fetchall())
+```
+
+Select One
+
+```python
+res = cur.execute("SELECT * FROM people WHERE name = 'Matt'")
+print(res.fetchone())
+```
+
+Insert
+
+```python
+cur.execute("INSERT INTO people (name, age) VALUES (?, ?)", ['Zagthorp', 543])
+con.commit()
+```
+
+Delete
+
+```python
+cur.execute("DELETE FROM people WHERE name = ?", ['Bilbo'])
+con.commit()
+```
+
+Update
+
+```python
+cur.execute("UPDATE people SET name = ? WHERE name = ?", ['Bilbo', 'Matthew'])
+con.commit()
 ```
 
 ## Migrating data to a SQLite
