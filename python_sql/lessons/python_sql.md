@@ -172,6 +172,33 @@ con.close()
 
 ## CSV Basics
 
+mydb.csv:
+
+```csv
+1,matt,43
+2,sally,34
+3,zagthorp,999
+```
+
+read:
+
+```python
+import csv
+
+with open('mydb.csv', newline='') as csvfile:
+    people = csv.reader(csvfile, delimiter=',')
+    for person in people:
+        print(person)
+```
+
+wrte:
+
+```python
+import csv
+with open('writedb.csv', 'w') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow([1, 'matt', 43])
+```
 
 ## Exporting data to CSV
 
