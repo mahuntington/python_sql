@@ -8,6 +8,7 @@
 1. Running Queries with Python
 1. SQLite Basics
 1. Migrating data to a SQLite
+1. CSV Basics
 1. Exporting data to CSV
 
 ## Install a Python virtual environment
@@ -169,7 +170,8 @@ con.commit()
 con.close()
 ```
 
+## CSV Basics
+
 
 ## Exporting data to CSV
-
 
