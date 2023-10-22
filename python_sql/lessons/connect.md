@@ -8,8 +8,6 @@
 1. Running Queries with Python
 1. Migrating data to a SQLite
 1. Exporting data to CSV
-1. Create an API with Flask
-1. Create a web UI to customize automation
 
 ## Install a Python virtual environment
 
