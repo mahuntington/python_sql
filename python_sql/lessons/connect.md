@@ -1,4 +1,4 @@
-# Plan for Python + SQL
+# Python + SQL
 
 ## Lessons
 
@@ -29,19 +29,51 @@ python -m pip install psycopg2-binary
 ```python
 import psycopg2
 conn = psycopg2.connect(
-    database="supertest_lab"
+    database="my_db"
 )
+
+# close connection
+conn.close()
 ```
 
 ## Running Queries with Python
 
+Select many
+
 ```python
 cursor = conn.cursor()
+
 cursor.execute("SELECT * FROM people")
 print(cursor.fetchall())
+
+# close connection
+cursor.close()
 ```
 
-## Labs
+Select one
 
-1. create a terminal based customer relationship management tool
-1. migrate the CRM from previous lab to simple web app with an API
+```ptyon
+cursor.execute("SELECT * FROM people WHERE id = 12")
+print(cursor.fetchone())
+```
+
+Insert
+
+```python
+cursor.execute("INSERT INTO people (name, age) VALUES (%s, %s)", ['Matt', 43])
+conn.commit()
+```
+
+Delete
+
+```python
+cursor.execute("DELETE FROM people WHERE id = 12");
+conn.commit()
+```
+
+Update
+
+```python
+cursor.execute("UPDATE people SET name = %s, age = %s WHERE id = %s", ['Matt', 43, 20])
+conn.commit()
+```
