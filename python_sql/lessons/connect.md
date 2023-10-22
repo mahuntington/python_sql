@@ -131,7 +131,44 @@ cur.execute("UPDATE people SET name = ? WHERE name = ?", ['Bilbo', 'Matthew'])
 con.commit()
 ```
 
+Check via `sqlite3` in the terminal
+
+```
+sqlite3 mydb.db
+```
+
 ## Migrating data to a SQLite
+
+```python
+#PostgreSQL
+
+import psycopg2
+conn = psycopg2.connect(
+    database="my_db"
+)
+cursor = conn.cursor()
+cursor.execute("SELECT * FROM people")
+
+people = cursor.fetchall()
+
+cursor.close()
+conn.close()
+
+# SQLite
+
+import sqlite3
+
+con = sqlite3.connect("mydb.db")
+cur = con.cursor()
+cur.execute("CREATE TABLE people (id, name, age)")
+
+for person in people:
+    cur.execute("INSERT INTO people (id, name, age) VALUES (?, ?, ?)", [person[0], person[1], person[2]])
+
+con.commit()
+con.close()
+```
+
 
 ## Exporting data to CSV
 
