@@ -2,10 +2,6 @@
 
 # Intro to Python pt. 1
 
-## Video Link
-
-[Intro to Python pt 1](https://generalassembly.wistia.com/medias/zk66z0xm5x)
-
 ## Lesson Objectives
 
 1. Print a message

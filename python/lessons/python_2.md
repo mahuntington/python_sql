@@ -1,9 +1,5 @@
 # Intro to Python pt. 2
 
-## Video Link
-
-[Intro to Python pt 2](https://generalassembly.wistia.com/medias/gbn51kpqgh)
-
 ## Lesson Objectives
 
 1. Get user input
