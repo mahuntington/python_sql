@@ -63,15 +63,15 @@ INNER JOIN table2 as t2
 ON t1.common_filed = t2.common_field;
 ```
 
-This can also help when you use the same table twice in one query.  Say you had a flight tracker database.  This would be a Many to Many relationship, where the `flights` would act as the linking table.  It would contain Foreign Key references for both `departure_id` and `arrival_id`, but each column would point to the same `locations` table.  In order to reference columns correctly, you would need to rename the `locations` table at least once
+This can also help when you use the same table twice in one query.  Say you had a message tracker database.  This would be a Many to Many relationship, where the `messages` would act as the linking table.  It would contain Foreign Key references for both `sender_id` and `receiver_id`, but each column would point to the same `people` table.  In order to reference columns correctly, you would need to rename the `people` table at least once
 
 ```sql
 SELECT *
-FROM locations AS depatures
-JOIN flights
-	ON flights.departure_id = departures.id
-JOIN locations AS arrivals
-	ON flights.arrival_id = arrivals.id
+FROM people AS senders
+JOIN messages
+	ON messages.sender_id = senders.id
+JOIN people AS receivers
+	ON messages.receiver_id = receivers.id
 ```
 
 ### Indexes
