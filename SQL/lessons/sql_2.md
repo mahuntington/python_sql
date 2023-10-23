@@ -1,9 +1,5 @@
 # Intermediate SQL
 
-## Video Link
-
-[Intermediate SQL](https://www.youtube.com/watch?v=cYZVvWJu5Qs&list=PLdnONIhPScSQqXfMndCJRYWQl-0uApORf&index=22)
-
 ## Lesson Objectives tools1. Alter a table
 
 1. Alter a table

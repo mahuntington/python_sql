@@ -1,9 +1,5 @@
 # Intro to SQL
 
-## Video Link
-
-[Intro to SQL](https://www.youtube.com/watch?v=nZfVXH4CBGg&list=PLdnONIhPScSQqXfMndCJRYWQl-0uApORf&index=22)
-
 ## Lesson Objectives tools
 1. Connect to Postgres through CLI
 1. Create a Database
