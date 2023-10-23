@@ -145,13 +145,13 @@ SELECT array_agg(first_name), age FROM people GROUP BY age;
 
 You can combine tables horizontally
 
-Append each row of the `companies` table onto the end of each row of the `people` table
+Append each row of the `companies` table onto the end of each row of the `people` table.  Note, this is only for display purposes.  It does not save what is displayed anywhere in memory
 
 ```sql
 SELECT * FROM people CROSS JOIN companies;
 ```
 
-Do the same, but display only the rows where `people.employer_id` matches `companies.id`.  Note that when you have multiple tables, you'll need to specify which table which column belongs to.  Otherwise, as with the case of `id`, it could be ambiguous which table the column belongs to.
+Do the same, but display only the rows where `people.employer_id` matches `companies.id`.  Note that when you have multiple tables, you'll need to specify which table which column belongs to.  Otherwise, as with the case of `id`, it could be ambiguous which table the column belongs to.  When one column (such as `people.employer_id`) references the `id` column of another table, it is called a "Foreign Key".
 
 ```sql
 SELECT * FROM people JOIN companies ON people.employer_id = companies.id

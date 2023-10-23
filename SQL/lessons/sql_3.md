@@ -28,24 +28,50 @@
 
 ### Linking Tables
 
-1. [Some Nice Visuals](http://code.tutsplus.com/articles/sql-for-beginners-part-3-database-relationships--net-8561)
-1. One to Many/Many to One Relationships
-	- customer has many orders
-1. One to One Relationships
-	- each user has one address
-	- only one person at that address
-1. Many to Many Relationships
-	- actors and movies
-1. Self Referncing Relationships
-	- customer referral
+You can have lots of different kinds of relationships between your data.  Here are the most common.  [This page has some nice ways to visualize the data](http://code.tutsplus.com/articles/sql-for-beginners-part-3-database-relationships--net-8561)
+
+- One to Many/Many to One Relationships
+	- This is the most common
+	- One `customer` can have many `orders`
+	- Many `orders` can belong to one `customer`
+	- Each `order` row contains a `customer_id` column, which denotes which `customer` they belong to
+- Many to Many Relationships
+	- Not as common, but still prevalent
+	- Each `actor` is in many `movies`
+	- Each `movie` has many `actors` in it
+	- A "linking table" exists which maps actors to movies
+		- It contains only an `actor_id` and a `movie_id` column
+		- You'll need to join `actors` to `actors_movies_linker` and then join that again to `movies` (yes, you can have multiple joins in one query)
+- Self Referncing Relationships
+	- Customer referral system
+	- Each `customer` has a `referal_id` which points back to the `customer` table
+	- This is just like the One to Many relationship, but both tables are the same
+- One to One Relationships
+	- Seats at a theater
+	- Each `person` has only one `seat`
+	- Each `seat` has only one `person`
+	- This is just like a One to Many relationship, but there are no duplicate values in the foreign key column
 
 ### Alias
+
+Sometimes table/column names can become difficult to read.  When this happens, sometimes it is easier to temporarily rename them within the context of the query.  Note this does not change anything in memory.
 
 ```sql
 SELECT t1.column1 as col1, t2.column2 as col2
 FROM table1 as t1
 INNER JOIN table2 as t2
 ON t1.common_filed = t2.common_field;
+```
+
+This can also help when you use the same table twice in one query.  Say you had a flight tracker database.  This would be a Many to Many relationship, where the `flights` would act as the linking table.  It would contain Foreign Key references for both `departure_id` and `arrival_id`, but each column would point to the same `locations` table.  In order to reference columns correctly, you would need to rename the `locations` table at least once
+
+```sql
+SELECT *
+FROM locations AS depatures
+JOIN flights
+	ON flights.departure_id = departures.id
+JOIN locations AS arrivals
+	ON flights.arrival_id = arrivals.id
 ```
 
 ### Indexes
