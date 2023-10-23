@@ -12,7 +12,7 @@
 
 ## Connect to Postgres through CLI
 
-Since we used homebrew to install, use this command to start up the postgres enviornment (this is like running mongod when we were using MongoDB).
+If you used homebrew to install, use this command to start up the postgres enviornment.
 
 ```
 brew services start postgresql
@@ -40,13 +40,24 @@ Once inside the `psql` app, you can list the sub databases like this:
 
 ## Create a Database
 
-Like MongoDB, Postgres has "sub-databases":
+Postgres has "sub-databases" (probably one for each app that you build)
+
+Create a new database
 
 ```SQL
-CREATE DATABASE foo; -- create the sub database foo
-DROP DATABASE foo; -- drop it
-CREATE DATABASE test_db;
-\connect test_db; -- connect to the test_db sub database
+CREATE DATABASE foo;
+```
+
+Delete (drop) a database:
+
+```sql
+DROP DATABASE foo;
+```
+
+Connect to a different database:
+
+```sql
+\connect test_db;
 ```
 
 ## Data types
@@ -62,50 +73,151 @@ Postgres has the following data types:
 
 ## Create a table
 
-- Instead of collections, we have tables, which are just like a spreadsheet, or grid.  Rows are entries, and columns are properties of each row.
-- Unlike MongoDB, you have to tell Postgres, what data type each column is.  It's very 'strict'
+- Inside a database, we have tables, which are just like a spreadsheet or grid.  Rows are entries, and columns are properties of each row.
+- You have to tell Postgres what data type each column is.  It's very 'strict'
+
+Create a table called 'foo' with one column called 'name' which is a small text column:
 
 ```sql
-CREATE TABLE foo ( name varchar(20) ); -- create a table called 'foo' with one column called 'name' which is a small text column
-\dt -- describe your tables
-DROP TABLE foo; -- drop a table
-CREATE TABLE users ( id serial, name varchar(20), age int, email varchar(32) ); -- 'test' table has an id column, which is just a number, and a name column
-\d users; -- describe the columns of the test sub database
+CREATE TABLE foo ( name varchar(20) ); 
+```
+
+List (describe) your tables:
+
+```sql
+\dt
+```
+
+Delete (drop) a table:
+
+```sql
+DROP TABLE foo;
+```
+
+Create table with multiple columns
+- `id` is a `serial`, which is a special integer that increments each time a new row is created)
+- `name` is a 20 character string
+- `age` is an integer
+- `email` is a 32 character string
+
+```sql
+CREATE TABLE users ( id serial, name varchar(20), age int, email varchar(32) ); -
+```
+
+Describe the columns of the `users` table
+
+```sql
+\d users;
 ```
 
 ## Insert into the table
 
+Make sure your values are in the same order that you specify they will be.  You can move them around as you like, as long as you're consistent
+
 ```sql
-INSERT INTO users ( name, age, email ) VALUES ( 'Matt', 36, 'matt.huntington@generalassemb.ly'); -- create a row
+INSERT INTO users ( name, age, email ) VALUES ( 'Matt', 36, 'matt.huntington@generalassemb.ly');
 ```
 
 ## Select from table
 
+There are lots of ways to alter how you retrieve data from a table:
+
+Select all rows from the users table.  Display only the name column
+
 ```sql
-SELECT name FROM users; -- select all rows from the users table.  display only the name column
-SELECT * FROM users; -- select all rows from the users table.  display only the all columns
-SELECT * FROM users WHERE name = 'Matt'; -- select all rows from the user table where the name column is set to 'Matt'
-SELECT * FROM users WHERE name LIKE '%Matt%'; -- select all rows from the user table where the name column contains 'Matt'
-SELECT * FROM users WHERE name = 'Matt' AND email = 'matt.huntington@generalassemb.ly'; -- select all rows from the user table where the name column is set to 'Matt' AND the email column is set to matt.huntington@generalassemb.ly
-SELECT * FROM users WHERE name = 'Matt' OR email = 'matt.huntington@generalassemb.ly'; -- select all rows from the user table where either the name column is set to 'Matt' OR the email column is set to matt.huntington@generalassemb.ly
-SELECT * FROM users WHERE age = 36; -- select all rows from the user table where the age column is set to 36
-SELECT * FROM users WHERE age != 16; -- select all rows from the user table where the age column is not set to 16
-SELECT * FROM users WHERE age > 26; -- select all rows from the user table where the age column is greater than 26
-SELECT * FROM users WHERE age < 46; -- select all rows from the user table where the age column is less than 26
-SELECT * FROM users WHERE age <= 36; -- select all rows from the user table where the age column is less than or equal to 36
-SELECT * FROM users WHERE age >= 36; -- select all rows from the user table where the age column is greater than or equal to 36
-SELECT * FROM users WHERE age IS NULL; -- select all rows from the user table where the age column has no value
-SELECT * FROM users WHERE age IS NOT NULL; -- select all rows from the user table where the age column has any value
+SELECT name FROM users;
+```
+
+Select all rows from the users table.  Display all columns
+
+```sql
+SELECT * FROM users;
+```
+
+Select all rows from the user table where the name column is set to 'Matt'
+
+```sql
+SELECT * FROM users WHERE name = 'Matt';
+```
+
+Select all rows from the user table where the name column *contains* 'Matt' as a substring
+
+```sql
+SELECT * FROM users WHERE name LIKE '%Matt%'; 
+```
+
+Select all rows from the user table where the name column is set to 'Matt' AND the email column is set to matt.huntington@gmail.com
+
+```sql
+SELECT * FROM users WHERE name = 'Matt' AND email = 'matt.huntington@gmail.com';
+```
+
+Select all rows from the user table where *either* the name column is set to 'Matt' OR the email column is set to matt.huntington@gmail.com
+
+```sql
+SELECT * FROM users WHERE name = 'Matt' OR email = 'matt.huntington@gmail.com';
+```
+
+Select all rows from the user table where the age column is set to 36
+
+```sql
+SELECT * FROM users WHERE age = 36;
+```
+
+Select all rows from the user table where the age column is not set to 16
+
+```sql
+SELECT * FROM users WHERE age != 16;
+```
+
+Select all rows from the user table where the age column is greater than 26
+
+```sql
+SELECT * FROM users WHERE age > 26;
+```
+
+Select all rows from the user table where the age column is less than 46
+
+```sql
+SELECT * FROM users WHERE age < 46;
+```
+
+Select all rows from the user table where the age column is less than or equal to 36
+
+```sql
+SELECT * FROM users WHERE age <= 36;
+```
+
+Select all rows from the user table where the age column is greater than or equal to 36
+
+```sql
+SELECT * FROM users WHERE age >= 36; 
+```
+
+Select all rows from the user table where the age column has no value
+
+```sql
+SELECT * FROM users WHERE age IS NULL;
+```
+
+Select all rows from the user table where the age column has any value
+
+```sql
+SELECT * FROM users WHERE age IS NOT NULL;
 ```
 
 ## Update the table
 
+Update the users table.  Set the name column to 'Matthew' for every row that has the id column set to 1.  **VERY IMPORTANT** If you do not specify a `WHERE` condition, or in some other way limit it, the query will alter **every row** in your table.  **WATCH OUT!!**
+
 ```sql
-UPDATE users SET name = 'Matthew' WHERE id = 1; -- update the users table.  Set the name column to 'Matthew' for every row that has the id column set to 1
+UPDATE users SET name = 'Matthew' WHERE id = 1;
 ```
 
 ## Delete from table
 
+Delete all rows from the users table that have the id column set to 1.  **VERY IMPORTANT** If you do not specify a `WHERE` condition, or in some other way limit it, the query will delete **every row** in your table.  **WATCH OUT!!**
+
 ```sql
-DELETE FROM users WHERE id = 1; -- delete all rows from the users table that have the id column set to 1
+DELETE FROM users WHERE id = 1;
 ```
