@@ -119,7 +119,7 @@ sally.greet()
 ```
 
 - `__init__` is a function that gets called when a new object is created. Make sure you use two underscores on either side of the `init` or it will break!
-- `self` is the object that's created
+- `self` is the object that's created.  It's required for all methods
 
 ## Have a class inherit from another
 
@@ -157,6 +157,10 @@ superman.greet()
 superman.work()
 ```
 
+- Here, SuperHero uses the `super` class's `init` method within its own.  It then continues on doing its own thing
+- It does something similar with `greet`, going on to invoke `listPowers` (a method unique to the `SuperHero` class) which it defines next
+- It overwrites the `super` class's `work` method
+
 ## Create a factory for objects
 
 ```python
@@ -189,3 +193,9 @@ toyota.makeCar('Rav 4')
 toyota.listCars()
 print(toyota.findCar(1).model)
 ```
+
+- The main thing to note here is that we have the `CarFactory` class that, when instantiated, has the ability to instantiate the `Car` class.
+- It keeps track of the cars it's created in its `cars` list property
+- It passes on its own `name` property to the `Car` object's `maker` property
+- It assigns a serial number based on the number of cars in its `cars` list property
+- `listCars` and `findCar` make use of its `cars` property to perform some basic tasks on its inventory
