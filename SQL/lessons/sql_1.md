@@ -1,6 +1,7 @@
 # Intro to SQL
 
 ## Lesson Objectives tools
+
 1. Connect to Postgres through CLI
 1. Create a Database
 1. Create a table
