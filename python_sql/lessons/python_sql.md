@@ -141,7 +141,7 @@ sqlite3 mydb.db
 ## Migrating data to a SQLite
 
 ```python
-#PostgreSQL
+# PostgreSQL
 
 import psycopg2
 conn = psycopg2.connect(
@@ -202,3 +202,28 @@ with open('writedb.csv', 'w') as csvfile:
 
 ## Exporting data to CSV
 
+```python
+# PostgreSQL
+
+import psycopg2
+conn = psycopg2.connect(
+    database="my_db"
+)
+cursor = conn.cursor()
+
+cursor.execute("SELECT * FROM people")
+
+people = cursor.fetchall()
+
+cursor.close()
+conn.close()
+
+# CSV
+
+import csv
+
+with open('writedb.csv', 'w') as csvfile:
+    writer = csv.writer(csvfile)
+    for person in people:
+        writer.writerow(person)
+```
