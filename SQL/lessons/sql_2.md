@@ -160,13 +160,13 @@ SELECT * FROM people JOIN companies ON people.employer_id = companies.id
 Do the same as the previous example, but also display any rows from the `people` that were previously left off
 
 ```sql
-SELECT * FROM people LEFT JOIN companies ON people.employer_id = companies.id
+SELECT * FROM people LEFT JOIN companies ON people.employer_id = companies.id;
 ```
 
 This is similar to `LEFT JOIN` but it displays any rows from the `companies` table that were previously left off
 
 ```sql
-SELECT * FROM people RIGHT JOIN companies ON people.employer_id = companies.id
+SELECT * FROM people RIGHT JOIN companies ON people.employer_id = companies.id;
 ```
 This is basically a combination of `LEFT JOIN` and `RIGHT JOIN`.  Display missing rows from *both* tables
 
