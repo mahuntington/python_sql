@@ -101,7 +101,7 @@ Create table with multiple columns
 - `email` is a 32 character string
 
 ```sql
-CREATE TABLE users ( id serial, name varchar(20), age int, email varchar(32) ); -
+CREATE TABLE users ( id serial, name varchar(20), age int, email varchar(32) );
 ```
 
 Describe the columns of the `users` table
