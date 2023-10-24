@@ -167,7 +167,7 @@ This is similar to `LEFT JOIN` but it displays any rows from the `companies` tab
 
 ```sql
 SELECT * FROM people RIGHT JOIN companies ON people.employer_id = companies.id ```
-
+```
 This is basically a combination of `LEFT JOIN` and `RIGHT JOIN`.  Display missing rows from *both* tables
 
 ```sql
