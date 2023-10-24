@@ -154,7 +154,7 @@ SELECT * FROM people CROSS JOIN companies;
 Do the same, but display only the rows where `people.employer_id` matches `companies.id`.  Note that when you have multiple tables, you'll need to specify which table which column belongs to.  Otherwise, as with the case of `id`, it could be ambiguous which table the column belongs to.  When one column (such as `people.employer_id`) references the `id` column of another table, it is called a "Foreign Key".
 
 ```sql
-SELECT * FROM people JOIN companies ON people.employer_id = companies.id
+SELECT * FROM people JOIN companies ON people.employer_id = companies.id;
 ```
 
 Do the same as the previous example, but also display any rows from the `people` that were previously left off
