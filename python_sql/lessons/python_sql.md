@@ -41,16 +41,16 @@ python -m pip install psycopg2-binary
 
 Once we've installed `psychopg2-binary`, we can import it just like any other package that comes as part of the default Python installation.
 
-To connect to the database, we need to run `psycopg2.connect()` and supply the correct data.  To close the connection, run `conn.close()`
+To connect to the database, we need to run `psycopg2.connect()` and supply the correct data.  To close the connection, run `connection.close()`
 
 ```python
 import psycopg2
-conn = psycopg2.connect(
+connection = psycopg2.connect(
     database="my_db"
 )
 
 # close connection
-conn.close()
+connection.close()
 ```
 
 ## Running Queries with Python
@@ -60,7 +60,7 @@ Running queries requires a "cursor" which is basically just something that perfo
 Let's create a cursor and then have it perform a `SELECT` query.  Once, the cursor has executed the query, it gives us a few functions that control have we view the data.  Let's fetch all of the rows returned from the execution of the query and place them in a list.  Note that each row is represented as a `tuple` is just an immutable list.  When you're done, you'll need to close the cursor with `cursor.close()` in addition to closing the connection (shown above)
 
 ```python
-cursor = conn.cursor()
+cursor = connection.cursor()
 
 cursor.execute("SELECT * FROM people")
 print(cursor.fetchall())
@@ -80,21 +80,21 @@ Now let's run an `INSERT` with two parameters passed in.  The order of the `%s` 
 
 ```python
 cursor.execute("INSERT INTO people (name, age) VALUES (%s, %s)", ['Matt', 43])
-conn.commit()
+connection.commit()
 ```
 
 Delete is pretty simple once we know the basics
 
 ```python
 cursor.execute("DELETE FROM people WHERE id = %s", [24]);
-conn.commit()
+connection.commit()
 ```
 
 Update is just more of the same, but make sure your array parameter matches the `%s` placeholders
 
 ```python
 cursor.execute("UPDATE people SET name = %s, age = %s WHERE id = %s", ['Matt', 43, 20])
-conn.commit()
+connection.commit()
 ```
 
 ## SQLite Basics
@@ -116,25 +116,25 @@ cursor = connection.cursor()
 cursor.execute("CREATE TABLE people (name, age)")
 ```
 
-Very similar, except that `cursor.execute` returns a result set that has the `fetchone`/`fetchall` functionality
+`INSERT` is very similar to `psycopg2-binary`, but you use `?` instead of `%s`
+
+```python
+cursor.execute("INSERT INTO people (name, age) VALUES (?, ?)", ['Zagthorp', 543])
+connection.commit()
+```
+
+Having the cursor execute a `SELECT` statement is very similar to `psycopg2-binary`, except that `cursor.execute` returns a result set that has the `fetchone`/`fetchall` functionality
 
 ```python
 result = cursor.execute("SELECT * FROM people")
 print(result.fetchall())
 ```
 
-Selecting a single row is similar to `psycopg2-binary`, but you use `?` instead of `%s`
+Selecting a single row works as expected
 
 ```python
 result = cursor.execute("SELECT * FROM people WHERE name = ?", ['Matt'])
 print(result.fetchone())
-```
-
-`INSERT` works as expected
-
-```python
-cursor.execute("INSERT INTO people (name, age) VALUES (?, ?)", ['Zagthorp', 543])
-connection.commit()
 ```
 
 So does `DELETE`
