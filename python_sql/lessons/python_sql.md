@@ -103,52 +103,52 @@ SQLite functionality comes as part of the default python installation (no packag
 
 ```python
 import sqlite3
-con = sqlite3.connect("mydb.db")
+connection = sqlite3.connect("mydb.db")
 
 # close connection
-con.close()
+connection.close()
 ```
 
 Create a table (this could also be done in `psycopg2-binary` as well).  Note there is no need to close the cursor
 
 ```python
-cur = con.cursor()
-cur.execute("CREATE TABLE people (name, age)")
+cursor = connection.cursor()
+cursor.execute("CREATE TABLE people (name, age)")
 ```
 
 Very similar, except that `cur.execute` returns a result set that has the `fetchone`/`fetchall` functionality
 
 ```python
-res = cur.execute("SELECT * FROM people")
-print(res.fetchall())
+result = cursor.execute("SELECT * FROM people")
+print(result.fetchall())
 ```
 
 Selecting a single row is similar to `psycopg2-binary`, but you use `?` instead of `%s`
 
 ```python
-res = cur.execute("SELECT * FROM people WHERE name = ?", ['Matt'])
-print(res.fetchone())
+result = cursor.execute("SELECT * FROM people WHERE name = ?", ['Matt'])
+print(result.fetchone())
 ```
 
 `INSERT` works as expected
 
 ```python
-cur.execute("INSERT INTO people (name, age) VALUES (?, ?)", ['Zagthorp', 543])
-con.commit()
+cursor.execute("INSERT INTO people (name, age) VALUES (?, ?)", ['Zagthorp', 543])
+connection.commit()
 ```
 
 So does `DELETE`
 
 ```python
-cur.execute("DELETE FROM people WHERE name = ?", ['Bilbo'])
-con.commit()
+cursor.execute("DELETE FROM people WHERE name = ?", ['Bilbo'])
+connection.commit()
 ```
 
 and `UPDATE`
 
 ```python
-cur.execute("UPDATE people SET name = ? WHERE name = ?", ['Bilbo', 'Matthew'])
-con.commit()
+cursor.execute("UPDATE people SET name = ? WHERE name = ?", ['Bilbo', 'Matthew'])
+connection.commit()
 ```
 
 At any point, you can use the `sqlite3` terminal command to interface with the database, just like you would with `psql`
