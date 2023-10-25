@@ -3,7 +3,7 @@
 ## Lessons
 
 1. Install a Python virtual environment
-1. Install psychopg2-binary
+1. Install psycopg2-binary
 1. Connect to Postgres via Python
 1. Running Queries with Python
 1. SQLite Basics
@@ -29,9 +29,9 @@ source ~/my-env/bin/activate
 
 Once activated, any python packages that we install will be installed just for that virtual environment.  We can switch between virtual environments simply by activating them, thus allowing us to have different sets of dependencies available to us for different projects.
 
-## Install psychopg2-binary
+## Install psycopg2-binary
 
-The `psychopg2-binary` Python package facilitates communication between Python and PostgrSQL.  It's not necessary in order to do so, but it makes our lives *much* easier.
+The `psycopg2-binary` Python package facilitates communication between Python and PostgrSQL.  It's not necessary in order to do so, but it makes our lives *much* easier.
 
 ```
 python -m pip install psycopg2-binary
@@ -39,7 +39,7 @@ python -m pip install psycopg2-binary
 
 ## Connect to Postgres via Python
 
-Once we've installed `psychopg2-binary`, we can import it just like any other package that comes as part of the default Python installation.
+Once we've installed `psycopg2-binary`, we can import it just like any other package that comes as part of the default Python installation.
 
 To connect to the database, we need to run `psycopg2.connect()` and supply the correct data.  To close the connection, run `connection.close()`
 
