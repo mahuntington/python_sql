@@ -116,7 +116,7 @@ cursor = connection.cursor()
 cursor.execute("CREATE TABLE people (name, age)")
 ```
 
-Very similar, except that `cur.execute` returns a result set that has the `fetchone`/`fetchall` functionality
+Very similar, except that `cursor.execute` returns a result set that has the `fetchone`/`fetchall` functionality
 
 ```python
 result = cursor.execute("SELECT * FROM people")
