@@ -1,5 +1,4 @@
-
-
+<!-- TODO: add list/dictionary operations (create, update, delete) -->
 # Intro to Python pt. 1
 
 ## Lesson Objectives
