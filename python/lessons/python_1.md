@@ -1,4 +1,5 @@
 <!-- TODO: add list/dictionary operations (create, update, delete) -->
+<!-- TODO: add random int, decrement, increment, loop over string chars, len of lists/strings-->
 # Intro to Python pt. 1
 
 ## Lesson Objectives
