@@ -113,13 +113,13 @@ Create a table (this could also be done in `psycopg2-binary` as well).  Note the
 
 ```python
 cursor = connection.cursor()
-cursor.execute("CREATE TABLE people (name, age)")
+cursor.execute("CREATE TABLE people (id, name, age)")
 ```
 
 `INSERT` is very similar to `psycopg2-binary`, but you use `?` instead of `%s`
 
 ```python
-cursor.execute("INSERT INTO people (name, age) VALUES (?, ?)", ['Zagthorp', 543])
+cursor.execute("INSERT INTO people (id, name, age) VALUES (?, ?, ?)", [1, 'Zagthorp', 543])
 connection.commit()
 ```
 
@@ -133,21 +133,21 @@ print(result.fetchall())
 Selecting a single row works as expected
 
 ```python
-result = cursor.execute("SELECT * FROM people WHERE name = ?", ['Matt'])
+result = cursor.execute("SELECT * FROM people WHERE id = ?", [1])
 print(result.fetchone())
 ```
 
 So does `DELETE`
 
 ```python
-cursor.execute("DELETE FROM people WHERE name = ?", ['Bilbo'])
+cursor.execute("DELETE FROM people WHERE name = ?", [1])
 connection.commit()
 ```
 
 and `UPDATE`
 
 ```python
-cursor.execute("UPDATE people SET name = ? WHERE name = ?", ['Bilbo', 'Matthew'])
+cursor.execute("UPDATE people SET name = ? WHERE id = ?", ['Bilbo', 2])
 connection.commit()
 ```
 
