@@ -291,8 +291,7 @@ Locks are a great way to make sure nobody messes with your data until after all 
 
 ```sql
 BEGIN;
-LOCK TABLE people IN ROW EXCLUSIVE MODE;
-SELECT * FROM people WHERE id = 12 FOR UPDATE;
+LOCK TABLE people;
 
 -- start a new session and run UPDATE people SET name = 'Matt' WHERE id = 12;
 -- switch back to original session
