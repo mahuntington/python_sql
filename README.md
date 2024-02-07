@@ -1,6 +1,30 @@
 # Lesson Outline
 
-## SQL
+## Day 1: Python
+
+### Intro to Python pt. 1
+
+1. Print a message
+1. Add a comment
+1. Create a variable and assign it a value
+1. Explain the different data types
+1. Perform calculations with variables
+1. Use string operations
+1. Create a list
+1. Access an element of a list
+1. Use conditional statements to perfom a set of commands depending on the situation
+
+### Intro to Python pt. 2
+
+1. Get user input
+1. Repeatedly perform a set of commands
+1. Use a for loop
+1. Define a function
+1. Create a class for an object
+1. Have a class inherit from another
+1. Create a factory for objects
+
+## Day 2: SQL
 
 ### Intro to SQL
 
@@ -29,7 +53,7 @@
 1. Indexes
 1. Constraints
 
-### Additional SQL Topics (as time permits)
+## Day 3: Additional SQL Topics
 
 1. EER Diagrams
 1. Unions
@@ -44,31 +68,7 @@
 1. Excel -> CSV -> SQL
 1. SQL Injection
 
-## Python
-
-### Intro to Python pt. 1
-
-1. Print a message
-1. Add a comment
-1. Create a variable and assign it a value
-1. Explain the different data types
-1. Perform calculations with variables
-1. Use string operations
-1. Create a list
-1. Access an element of a list
-1. Use conditional statements to perfom a set of commands depending on the situation
-
-### Intro to Python pt. 2
-
-1. Get user input
-1. Repeatedly perform a set of commands
-1. Use a for loop
-1. Define a function
-1. Create a class for an object
-1. Have a class inherit from another
-1. Create a factory for objects
-
-## Python + SQL
+## Day 4: Python + SQL
 
 ### Topics
 
@@ -78,3 +78,5 @@
 1. Exporting data to CSV
 1. Create an API with Flask
 1. Create a web UI to customize automation
+
+## Day 5: Hackathon!
