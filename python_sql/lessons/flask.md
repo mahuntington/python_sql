@@ -5,7 +5,7 @@
 In this lesson, we'll create a web API using the Flask framework.  By the end of the lesson, it will be able to perform create, read, update, and delete actions on a specific model in your database.
 ## Creating a Virtual Development Environment
 
-Let's create a special development environment.  This will separate what we use for class from the rest of your system.  It also makes installing python packages easier
+If this hasn't already been done yet, let's create a special development environment.  This will separate what we use for class from the rest of your system.  It also makes installing python packages easier
 
 ```zsh
 python3 -m venv ~/my-env
@@ -52,7 +52,7 @@ Inside that file, let's import `Flask`:
 from flask import Flask
 ```
 
-Below that, let's create an "app" which basically be a place that houses the routes we create.
+Below that, let's create an "app" which basically will be a place that houses the routes we will create.  Each route is specific "location" from which a web browser can request information.
 
 ```python
 app = Flask('demo')
@@ -66,6 +66,19 @@ def hello():
 	return "hello world!"
 ```
 
+The `@app.get("/")` is a decorator.  Anything that starts with `@` modifies the functionality of a function in some way.  In this case, this decorator tells flask what requests to run the `hello` function for.
+
+This route will return the text "hello world!" when our server app receives a request that matches the following information:
+
+- `.get` refers to the `GET` HTTP verb.  Each request that a browser or other client makes must specify a verb.  Each verb tells us what the route is trying to accomplish.  There are 4 main HTTP verbs that we'll use in this lesson.
+	- GET: reading data
+	- POST: creating data
+	- DELETE: deleting data
+	- PUT: updating data
+- `"/"` refers to the path, or location, or model, that we are trying to act on
+
+Using just the information given in `@app.get("/")`, we can determine that we're trying to reading information from the very root of the application.
+
 Let's start our server by running the following in the terminal:
 
 ```zsh
@@ -73,5 +86,23 @@ flask --app server.py run --debug
 ```
 
 Now if you go to `http://127.0.0.1:5000` you should see the text `hello world!`.  Note that if you make a change to the Python code and save, `flask` will automatically restart the server for us, thanks to the `--debug` flag we have in the command.
-## something
-For this app, our model will be people, and we'll use the `people` table that we've already been working with.
+
+## Connect to Postgres
+
+If you haven't already done so, let's instal `psycopg2-binary`, which will allow us to control our Postgres database from our Python code.
+
+```zsh
+python -m pip install psycopg2-binary
+```
+
+Now in our `server.py` code, let's import it and have our app connect:
+
+```python
+import psycopg2
+connection = psycopg2.connect(
+    database="my_db"
+)
+```
+
+## Create an Index Route
+
