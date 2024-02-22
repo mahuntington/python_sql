@@ -99,20 +99,24 @@ Now in our `server.py` code, let's import it and have our app connect to the dat
 
 ```python
 import psycopg2
+
 connection = psycopg2.connect(
     database="my_db"
 )
 ```
 
-Finally, create a cursor, which is like a pointer to the database responsible for performing actions on it:
+Finally, create a cursor, which is like a pointer to the database responsible for performing actions on it.
 
 ```python
-cursor = connection.cursor()
+import psycopg2.extras
+cursor = connection.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
 ```
+
+We want `psycopg2` to return lists of dictionaries, so we import `psycopog2.extras` and then change the kind of cursor using `cursor_factory = psycopg2.extras.RealDictCursor`.
 
 ## Create an Index Route
 
-From here on out, it's just combination of what we already know about using Python alongside Postgres
+From here on out, it's just combination of what we already know about using Python alongside Postgres.  Delete the `@app.get("/")` route along with the `hello` route handler function.  Add in the following:
 
 ```python
 @app.get("/people/")
@@ -122,6 +126,14 @@ def index():
 ```
 
 ## Create a Create Route
+
+To create a Create route, we'll need to access the body of the request coming in.  Import `request` like so:
+
+```python
+from flask import Flask, request # add request
+```
+
+The body of our request will be formatted as JSON, so we'll access its values by using the `reques.json` dictionary.
 
 ```python
 @app.post("/people/")
@@ -135,6 +147,8 @@ def create():
 
 ## Create a Delete Route
 
+We can use a URL param `<id>` so that clients can make DELETE requests to something like `/people/1`.  Then the router handler function will be passed `id`, which we can use to specify in the SQL statement which row to delete.
+
 ```python
 @app.delete("/people/<id>")
 def delete(id):
@@ -146,6 +160,8 @@ connection.commit()
 ```
 
 ## Create an Update Route
+
+Update is the most complex, but it's just a combination of what we know alread:
 
 ```python
 @app.put("/people/<id>")
@@ -159,10 +175,24 @@ connection.commit()
 
 ## CORS
 
-Lastly, we'll need to install CORS so that we can access the API from other domains:
+Lastly, we'll need to install CORS so that we can access the API from other domains.  First install the package:
+
+```zsh
+pip install -U flask-cors
+```
+
+Now import it in the app:
+
+```python
+from flask_cors import CORS
+```
+
+and lastly, set it up:
 
 ```python
 CORS(app)
 ```
+
+If you add an `Origin` to the header of the request, you should see a corresponding `Access-Control-Allow-Origin` in the header of the response.
 
 That's it!  You have a fully functioning CRUD API!
