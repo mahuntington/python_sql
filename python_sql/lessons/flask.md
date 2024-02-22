@@ -95,7 +95,7 @@ If you haven't already done so, let's instal `psycopg2-binary`, which will allow
 python -m pip install psycopg2-binary
 ```
 
-Now in our `server.py` code, let's import it and have our app connect:
+Now in our `server.py` code, let's import it and have our app connect to the database:
 
 ```python
 import psycopg2
@@ -104,5 +104,65 @@ connection = psycopg2.connect(
 )
 ```
 
+Finally, create a cursor, which is like a pointer to the database responsible for performing actions on it:
+
+```python
+cursor = connection.cursor()
+```
+
 ## Create an Index Route
 
+From here on out, it's just combination of what we already know about using Python alongside Postgres
+
+```python
+@app.get("/people/")
+def index():
+    cursor.execute("SELECT * FROM people")
+    return cursor.fetchall()
+```
+
+## Create a Create Route
+
+```python
+@app.post("/people/")
+def create():
+    cursor.execute("INSERT INTO people (name, age) VALUES (%s, %s)", [request.json["name"], request.json["age"]])
+	connection.commit()
+    return {
+        "success":True
+    }
+```
+
+## Create a Delete Route
+
+```python
+@app.delete("/people/<id>")
+def delete(id):
+    cursor.execute("DELETE FROM people WHERE id = %s", [id]);
+connection.commit()
+    return {
+        "success":True
+    }
+```
+
+## Create an Update Route
+
+```python
+@app.put("/people/<id>")
+def update(id):
+    cursor.execute("UPDATE people SET name = %s, age = %s WHERE id = %s", [request.json["name"], request.json["age"], id])
+connection.commit()
+    return {
+        "success":True
+    }
+```
+
+## CORS
+
+Lastly, we'll need to install CORS so that we can access the API from other domains:
+
+```python
+CORS(app)
+```
+
+That's it!  You have a fully functioning CRUD API!
