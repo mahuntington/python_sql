@@ -3,6 +3,7 @@
 ## Description
 
 In this lesson, we'll create a web API using the Flask framework.  By the end of the lesson, it will be able to perform create, read, update, and delete actions on a specific model in your database.
+
 ## Creating a Virtual Development Environment
 
 If this hasn't already been done yet, let's create a special development environment.  This will separate what we use for class from the rest of your system.  It also makes installing python packages easier
@@ -21,7 +22,7 @@ source ~/my-env/bin/activate
 
 **NOTE:** you'll have to run `source ~/my-env/bin/activate` every time you create a new terminal window.  If you want, you can put this command in `~/.bash_profile` or `~/.zshenv` depending on whether you're using bash or zsh, respectively
 
-Now the `python3` command has been replaced with `python`.  Too see this in action, run the following:
+Now the `python3` command has been replaced with `python`.  To see this in action, run the following:
 
 ```
 python --version
@@ -30,9 +31,10 @@ python --version
 You can have as many different virtual environments as you want, located wherever you want.  From here on out, whenever you install a Python package, it will be installed just for the virtual environment that has been activated, leaving the others alone.
 
 Switching between virtual environments is as easy as running the `source` command above for the given virtual environment that you want to activate.
+
 ## Install Flask
 
-Flask is a 3rd party package for python.  It's designed to help developers quickly create web applications and web API's.  Let's install it for the virtual environment we just created.
+Flask is a 3rd party package for Python.  It's designed to help developers quickly create web applications and web API's.  Let's install it for the virtual environment we just created.
 
 ```zsh
 pip install Flask
@@ -52,7 +54,7 @@ Inside that file, let's import `Flask`:
 from flask import Flask
 ```
 
-Below that, let's create an "app" which basically will be a place that houses the routes we will create.  Each route is specific "location" from which a web browser can request information.
+Below that, let's create an "app" which basically will be a place that houses the routes we will create.  Each route is specific "location" from which a web browser can request or manipulate information.
 
 ```python
 app = Flask('demo')
@@ -66,18 +68,18 @@ def hello():
 	return "hello world!"
 ```
 
-The `@app.get("/")` is a decorator.  Anything that starts with `@` modifies the functionality of a function in some way.  In this case, this decorator tells flask what requests to run the `hello` function for.
+The `@app.get("/")` is a decorator.  Anything that starts with `@` modifies the functionality of the subsequent function in some way.  In this case, this decorator tells flask which requests to run the `hello` function for.
 
 This route will return the text "hello world!" when our server app receives a request that matches the following information:
 
 - `.get` refers to the `GET` HTTP verb.  Each request that a browser or other client makes must specify a verb.  Each verb tells us what the route is trying to accomplish.  There are 4 main HTTP verbs that we'll use in this lesson.
-	- GET: reading data
-	- POST: creating data
-	- DELETE: deleting data
-	- PUT: updating data
+	- GET: used for reading data
+	- POST: used for creating data
+	- DELETE: used for deleting data
+	- PUT: used for updating data
 - `"/"` refers to the path, or location, or model, that we are trying to act on
 
-Using just the information given in `@app.get("/")`, we can determine that we're trying to reading information from the very root of the application.
+Using just the information given in `@app.get("/")`, we can determine that we're trying to read information from the very root of the application.
 
 Let's start our server by running the following in the terminal:
 
@@ -85,11 +87,11 @@ Let's start our server by running the following in the terminal:
 flask --app server.py run --debug
 ```
 
-Now if you go to `http://127.0.0.1:5000` you should see the text `hello world!`.  Note that if you make a change to the Python code and save, `flask` will automatically restart the server for us, thanks to the `--debug` flag we have in the command.
+Now if you make a GET request to `http://127.0.0.1:5000` using Postman, you should see the text `hello world!`.  Note that if you make a change to the Python code and save, `flask` will automatically restart the server for us, thanks to the `--debug` flag we have in the command.
 
 ## Connect to Postgres
 
-If you haven't already done so, let's instal `psycopg2-binary`, which will allow us to control our Postgres database from our Python code.
+If you haven't already done so, let's install `psycopg2-binary`, which will allow us to control our Postgres database from our Python code.
 
 ```zsh
 python -m pip install psycopg2-binary
@@ -116,7 +118,7 @@ We want `psycopg2` to return lists of dictionaries, so we import `psycopog2.extr
 
 ## Create an Index Route
 
-From here on out, it's just combination of what we already know about using Python alongside Postgres.  Delete the `@app.get("/")` route along with the `hello` route handler function.  Add in the following:
+From here on out, it's just combination of Flask and what we already know about using Python with Postgres.  Delete the `@app.get("/")` route along with the `hello` route handler function.  Add in the following:
 
 ```python
 @app.get("/people/")
@@ -124,6 +126,8 @@ def index():
     cursor.execute("SELECT * FROM people")
     return cursor.fetchall()
 ```
+
+Now making a GET request to `http://127.0.0.1:5000/people` will give you a JSON representation of the `people` table.
 
 ## Create a Create Route
 
@@ -145,6 +149,15 @@ def create():
     }
 ```
 
+Now make a POST request to `http://127.0.0.1:5000/people` using Postman.  Be sure to set the body of the request to something like the following:
+
+```json
+{
+	"name":"matt",
+	"age": 43
+}
+```
+
 ## Create a Delete Route
 
 We can use a URL param `<id>` so that clients can make DELETE requests to something like `/people/1`.  Then the router handler function will be passed `id`, which we can use to specify in the SQL statement which row to delete.
@@ -153,7 +166,7 @@ We can use a URL param `<id>` so that clients can make DELETE requests to someth
 @app.delete("/people/<id>")
 def delete(id):
     cursor.execute("DELETE FROM people WHERE id = %s", [id]);
-connection.commit()
+	connection.commit()
     return {
         "success":True
     }
@@ -161,13 +174,13 @@ connection.commit()
 
 ## Create an Update Route
 
-Update is the most complex, but it's just a combination of what we know alread:
+Update is the most complex, but it's just a combination of what we know already:
 
 ```python
 @app.put("/people/<id>")
 def update(id):
     cursor.execute("UPDATE people SET name = %s, age = %s WHERE id = %s", [request.json["name"], request.json["age"], id])
-connection.commit()
+	connection.commit()
     return {
         "success":True
     }
