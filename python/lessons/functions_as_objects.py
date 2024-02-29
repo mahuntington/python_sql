@@ -59,6 +59,21 @@
 
 # greet()
 
+############
+# Step 5
+############
+# def henchman_decorator(reply):
+#     def wrapper(func):
+#         def augment_func():
+#             print(reply)
+#             func()
+#         return augment_func
+#     return wrapper
+
+# @henchman_decorator('yes boss')
+# def greet():
+#     print('hello')
+
 
 ############
 # Lambdas
