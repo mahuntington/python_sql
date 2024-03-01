@@ -1,11 +1,13 @@
 import random
 import requests
 import psycopg2
+import psycopg2.extras
 
 connection = psycopg2.connect(
     dbname="test_db"
 )
-cursor = connection.cursor()
+
+cursor = connection.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
 
 def retrieve_classes():
     response = requests.get('https://api.open5e.com/classes/?format=json')
@@ -45,11 +47,11 @@ if choice == "yes":
     username = input("Perfect! What is you username? ")
     found_player = process_username(username)
 
-    last_character = find_most_recent_character(found_player[0])
+    last_character = find_most_recent_character(found_player["id"])
     if last_character is None:
         print("You do not have any previously saved characters")
     else:
-        print("Your last character was: " + last_character[1] + " / " + last_character[2])
+        print("Your last character was: " + last_character["class"] + " / " + last_character["subclass"])
 
     classes = retrieve_classes()
     show_classes(classes)
@@ -62,6 +64,6 @@ if choice == "yes":
         print("Subclass: " + selected_archetype["name"])
         answer = input("Roll again? yes or no: ")
         if answer == 'no':
-            save_data(found_player[0], selected_class["name"], selected_archetype["name"])
+            save_data(found_player["id"], selected_class["name"], selected_archetype["name"])
 
 print('Thanks for your time!')
